@@ -29,13 +29,13 @@ function wetkit_breadcrumbs_theme_registry_alter(&$theme_registry) {
 
   foreach ($base_theme_info as $base) {
     if (!empty($base->name)) {
-      if ($base->name == 'wetkit_adaptivetheme') {
+      if ($base->name == 'wetkit_adaptivetheme' || $base->name == 'wetkit_omega') {
         $wetkit_base_theme = TRUE;
       }
     }
   }
 
-  if ($internal_render && (($theme == 'wetkit_adaptivetheme') || ($wetkit_base_theme == TRUE))) {
+  if ($internal_render && (($theme == 'wetkit_adaptivetheme') || ($theme == 'wetkit_omega') || ($wetkit_base_theme == TRUE))) {
     $theme_registry['breadcrumb']['theme path'] = drupal_get_path('module', 'wetkit_breadcrumbs');
     $theme_registry['breadcrumb']['file'] = drupal_get_path('module', 'wetkit_breadcrumbs') . '/theme/wetkit_breadcrumbs.theme.inc';
     $theme_registry['breadcrumb']['function'] = 'wetkit_breadcrumbs_breadcrumb';

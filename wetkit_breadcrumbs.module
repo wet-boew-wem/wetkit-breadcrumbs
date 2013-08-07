@@ -39,6 +39,7 @@ function wetkit_breadcrumbs_theme_registry_alter(&$theme_registry) {
     $theme_registry['breadcrumb']['theme path'] = drupal_get_path('module', 'wetkit_breadcrumbs');
     $theme_registry['breadcrumb']['file'] = drupal_get_path('module', 'wetkit_breadcrumbs') . '/theme/wetkit_breadcrumbs.theme.inc';
     $theme_registry['breadcrumb']['function'] = 'wetkit_breadcrumbs_breadcrumb';
+    $theme_registry['breadcrumb']['final'] = TRUE;
   }
 }
 

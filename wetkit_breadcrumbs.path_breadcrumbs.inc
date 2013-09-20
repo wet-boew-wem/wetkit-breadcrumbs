@@ -42,6 +42,37 @@ function wetkit_breadcrumbs_path_breadcrumbs_settings_info() {
 
   $path_breadcrumb = new stdClass();
   $path_breadcrumb->api_version = 1;
+  $path_breadcrumb->machine_name = 'wetkit_node_edit_view';
+  $path_breadcrumb->name = 'WetKit Node Edit View';
+  $path_breadcrumb->path = 'node/%node/edit';
+  $path_breadcrumb->data = array(
+    'titles' => array(
+      0 => '%node:title',
+    ),
+    'paths' => array(
+      0 => '%node:url',
+    ),
+    'home' => 1,
+    'translatable' => 1,
+    'arguments' => array(
+      'node' => array(
+        'position' => 1,
+        'argument' => 'entity_id:node',
+        'settings' => array(
+          'identifier' => 'Node: ID',
+        ),
+      ),
+    ),
+    'access' => array(
+      'plugins' => array(),
+      'logic' => 'and',
+    ),
+  );
+  $path_breadcrumb->weight = 0;
+  $export['wetkit_node_edit_view'] = $path_breadcrumb;
+
+  $path_breadcrumb = new stdClass();
+  $path_breadcrumb->api_version = 1;
   $path_breadcrumb->machine_name = 'wetkit_node_view';
   $path_breadcrumb->name = 'WetKit Node View';
   $path_breadcrumb->path = 'node/%node';
@@ -83,37 +114,6 @@ function wetkit_breadcrumbs_path_breadcrumbs_settings_info() {
   );
   $path_breadcrumb->weight = 0;
   $export['wetkit_node_view'] = $path_breadcrumb;
-
-  $path_breadcrumb = new stdClass();
-  $path_breadcrumb->api_version = 1;
-  $path_breadcrumb->machine_name = 'wetkit_node_edit_view';
-  $path_breadcrumb->name = 'WetKit Node Edit View';
-  $path_breadcrumb->path = 'node/%node/edit';
-  $path_breadcrumb->data = array(
-    'titles' => array(
-      0 => '%node:title',
-    ),
-    'paths' => array(
-      0 => '%node:url',
-    ),
-    'home' => 1,
-    'translatable' => 1,
-    'arguments' => array(
-      'node' => array(
-        'position' => 1,
-        'argument' => 'entity_id:node',
-        'settings' => array(
-          'identifier' => 'Node: ID',
-        ),
-      ),
-    ),
-    'access' => array(
-      'plugins' => array(),
-      'logic' => 'and',
-    ),
-  );
-  $path_breadcrumb->weight = 0;
-  $export['wetkit_node_edit_view'] = $path_breadcrumb;
 
   $path_breadcrumb = new stdClass();
   $path_breadcrumb->api_version = 1;

@@ -18,8 +18,8 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
   if (!empty($breadcrumbs)) {
 
     // Provide a navigational heading to give context for breadcrumb links to
-    // screen-reader users. Make the heading invisible with .element-invisible.
-    // Custom Logic Based on Theme Selection
+    // screen-reader users. Make the heading invisible with .element-invisible
+    // Custom Logic Based on Theme Selection.
     if (variable_get('wetkit_wetboew_theme', 0) == 1) {
       $theme_prefix = 'gcwu';
     }

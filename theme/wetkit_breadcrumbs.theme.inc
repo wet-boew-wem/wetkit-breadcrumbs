@@ -34,6 +34,10 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
     }
     $output = '<div id="' . $theme_prefix . '-bc"><h2>' . t('Breadcrumb Trail') . '</h2>';
 
+    // Provide a navigational heading to give context for breadcrumb links to
+    // screen-reader users. Make the heading invisible with .element-invisible.
+    $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
+
     // Hide breadcrumb navigation if it contains only one element.
     $hide_single_breadcrumb = variable_get('path_breadcrumbs_hide_single_breadcrumb', 0);
     if ($hide_single_breadcrumb && count($breadcrumbs) == 1) {
@@ -53,8 +57,8 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
       $options['absolute'] = TRUE;
 
       // Set correct properties for RDFa support.
-      $elem_property = 'typeof="v:Breadcrumb"';
-      $root_property = 'xmlns:v="http://rdf.data-vocabulary.org/#"';
+      $elem_property = ' typeof="v:Breadcrumb"';
+      $root_property = ' xmlns:v="http://rdf.data-vocabulary.org/#"';
     }
     elseif ($snippet == PATH_BREADCRUMBS_RICH_SNIPPETS_MICRODATA) {
 
@@ -63,11 +67,11 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
       $options['absolute'] = TRUE;
 
       // Set correct properties for microdata support.
-      $elem_property = 'itemscope itemtype="http://data-vocabulary.org/Breadcrumb"';
+      $elem_property = ' itemscope itemtype="http://data-vocabulary.org/Breadcrumb"';
       $elem_tag = 'div';
 
       // Add style that will display breadcrumbs wrapped in <div> inline.
-      drupal_add_css(drupal_get_path('module', 'path_breadcrumbs') . '/path_breadcrumbs.css');
+      drupal_add_css(drupal_get_path('module', 'path_breadcrumbs') . '/css/path_breadcrumbs.css');
     }
 
     foreach ($breadcrumbs as $key => $breadcrumb) {
@@ -82,7 +86,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
         $classes[] = 'last';
       }
 
-      // For rich snippets support all links should be processed in the same way
+      // For rich snippets support all links should be processed in the same way,
       // even if they are provided not by Path Breadcrumbs module. So I have to
       // parse html code and create links again with new properties.
       preg_match('/href="([^"]+?)"/', $breadcrumb, $matches);
@@ -101,12 +105,15 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
         }
 
         // Append additional params to base string for multilingual sites.
-        if (!empty($language->prefix)) {
+        // @note: Only core URL detection method supported.
+        $enabled_negotiation_types = variable_get("language_negotiation_language", array());
+        if (!empty($enabled_negotiation_types['locale-url']) && !empty($language->prefix)) {
           $base_string .= $language->prefix . '/';
         }
 
         // Means that this is href to the frontpage.
-        if (drupal_strlen($base_string) > drupal_strlen($matches[1])) {
+        global $language;
+        if ($matches[1] == '' || $matches[1] == '/' || $language->prefix) {
           $href = '';
         }
         // All hrefs exept frontpage.
@@ -131,14 +138,43 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
         $title = '<span itemprop="title">' . $title . '</span>';
       }
 
+      // Support title attribute.
+      if (preg_match('/<a\s.*?title="([^"]+)"[^>]*>/i', $breadcrumb, $attr_matches)) {
+        $options['attributes']['title'] = $attr_matches[1];
+      }
+      else {
+        unset($options['attributes']['title']);
+      }
+
+      // Decode url to prevent double encoding in l().
+      $href = rawurldecode($href);
       // Build new text or link breadcrumb.
       $options['attributes'] = array('title' => t('Breadcrumb for: ') . $title);
       $new_breadcrumb = !empty($href) ? l($title, $href, $options) : $title;
 
       // Replace old breadcrumb link with a new one.
-      $breadcrumbs[$key] = '<' . $elem_tag . ' class="' . implode(' ', $classes) . '" ' . $elem_property . '>' . $new_breadcrumb . '</' . $elem_tag . '>';
+      $breadcrumbs[$key] = '<' . $elem_tag . ' class="' . implode(' ', $classes) . '"' . $elem_property . '>' . $new_breadcrumb . '</' . $elem_tag . '>';
     }
 
+    // Get breadcrumb delimiter and wrap it into <span> for customization.
+    $delimiter = variable_get('path_breadcrumbs_delimiter', '»');
+    $delimiter = '<span class="delimiter">' . trim($delimiter) . '</span>';
+
+    $classes = array('breadcrumb');
+
+    // Show contextial link if it is Path Breadcrumbs variant.
+    $prefix = '';
+    $path_breadcrumbs_data = path_breadcrumbs_load_variant(current_path());
+    if (user_access('administer path breadcrumbs') && $path_breadcrumbs_data && isset($path_breadcrumbs_data->variant)) {
+      $contextual_links = array(
+        '#type' => 'contextual_links',
+        '#contextual_links' => array('path_breadcrumbs' => array('admin/structure/path-breadcrumbs/edit', array($path_breadcrumbs_data->variant->machine_name))),
+      );
+      $prefix = drupal_render($contextual_links);
+      $classes[] = 'contextual-links-region';
+    }
+
+    // Build final version of breadcrumb's HTML output.
     $delimiter = '';
     $output .= '<div id="' . $theme_prefix . '-bc-in"' . $root_property . '>' . '<ol>' . implode(' ' . trim($delimiter) . ' ', $breadcrumbs) . '</ol></div></div>';
     return $output;

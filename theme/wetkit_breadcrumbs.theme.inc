@@ -36,7 +36,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
 
     // Provide a navigational heading to give context for breadcrumb links to
     // screen-reader users. Make the heading invisible with .element-invisible.
-    $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
+    $output .= '<h2 class="element-invisible">' . t('You are here') . '</h2>';
 
     // Hide breadcrumb navigation if it contains only one element.
     $hide_single_breadcrumb = variable_get('path_breadcrumbs_hide_single_breadcrumb', 0);
@@ -162,7 +162,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
 
     $classes = array('breadcrumb');
 
-    // Show contextial link if it is Path Breadcrumbs variant.
+    // Show contextual link if it is Path Breadcrumbs variant.
     $prefix = '';
     $path_breadcrumbs_data = path_breadcrumbs_load_variant(current_path());
     if (user_access('administer path breadcrumbs') && $path_breadcrumbs_data && isset($path_breadcrumbs_data->variant)) {

@@ -17,8 +17,6 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
   $breadcrumbs = $variables['breadcrumb'];
   if (!empty($breadcrumbs)) {
 
-    // Provide a navigational heading to give context for breadcrumb links to
-    // screen-reader users. Make the heading invisible with .element-invisible
     // Custom Logic Based on Theme Selection.
     if (variable_get('wetkit_wetboew_theme', 0) == 1) {
       $theme_prefix = 'gcwu';
@@ -108,17 +106,16 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
         // @note: Only core URL detection method supported.
         $enabled_negotiation_types = variable_get("language_negotiation_language", array());
         if (!empty($enabled_negotiation_types['locale-url']) && !empty($language->prefix)) {
-          $base_string .= $language->prefix . '/';
+          $base_string .= $language->prefix;
         }
 
         // Means that this is href to the frontpage.
-        global $language;
-        if ($matches[1] == '' || $matches[1] == '/' || $language->prefix) {
+        if ($matches[1] == $base_string || $matches[1] == '' || $matches[1] == '/') {
           $href = '';
         }
         // All hrefs exept frontpage.
-        elseif (stripos($matches[1], $base_string) === 0) {
-          $href = drupal_substr($matches[1], drupal_strlen($base_string));
+        elseif (stripos($matches[1], "$base_string/") === 0) {
+          $href = drupal_substr($matches[1], drupal_strlen("$base_string/"));
         }
         // Other cases.
         else {

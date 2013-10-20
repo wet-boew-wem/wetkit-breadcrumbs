@@ -27,6 +27,9 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
     elseif (variable_get('wetkit_wetboew_theme', 0) == 3) {
       $theme_prefix = 'base';
     }
+    elseif (variable_get('wetkit_wetboew_theme', 0) == 4) {
+      $theme_prefix = 'ogpl';
+    }
     else {
       $theme_prefix = 'wet';
     }

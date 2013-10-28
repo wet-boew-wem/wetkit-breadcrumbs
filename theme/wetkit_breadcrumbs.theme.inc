@@ -87,7 +87,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
         $classes[] = 'last';
       }
 
-      // For rich snippets support all links should be processed in the same way,
+      // For rich snippets support all links should be processed in the same way
       // even if they are provided not by Path Breadcrumbs module. So I have to
       // parse html code and create links again with new properties.
       preg_match('/href="([^"]+?)"/', $breadcrumb, $matches);
@@ -149,7 +149,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
       // Decode url to prevent double encoding in l().
       $href = rawurldecode($href);
       // Build new text or link breadcrumb.
-      $options['attributes'] = array('title' => t('Breadcrumb for: ') . $title);
+      $options['attributes'] = array('title' => t('Breadcrumb for:') . ' ' . $title);
       $new_breadcrumb = !empty($href) ? l($title, $href, $options) : $title;
 
       // Replace old breadcrumb link with a new one.
@@ -177,7 +177,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
     // Build final version of breadcrumb's HTML output.
     $delimiter = '';
     $output .= '<div id="' . $theme_prefix . '-bc-in"' . $root_property . '>' . '<ol>' . implode(' ' . trim($delimiter) . ' ', $breadcrumbs) . '</ol></div></div>';
-    return $output;
+    return '<div class="' . implode(' ', $classes) . '"' . '>' . $prefix . $output . '</div>';
   }
 
   // Return false if no breadcrumbs.

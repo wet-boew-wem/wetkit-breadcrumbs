@@ -78,7 +78,7 @@ function wetkit_breadcrumbs_path_breadcrumbs_settings_info() {
   $path_breadcrumb->path = 'node/%node';
   $path_breadcrumb->data = array(
     'titles' => array(
-      0 => '%node:title',
+      0 => '%node:title_field',
     ),
     'paths' => array(
       0 => '%node:url',
@@ -102,7 +102,6 @@ function wetkit_breadcrumbs_path_breadcrumbs_settings_info() {
             'type' => array(
               'wetkit_documentation' => 'wetkit_documentation',
               'wetkit_page' => 'wetkit_page',
-              'wetkit_page_other' => 'wetkit_page_other',
             ),
           ),
           'context' => 'node',

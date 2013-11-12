@@ -98,7 +98,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
         global $base_path;
         global $language;
 
-        $base_string = $base_path;
+        $base_string = rtrim($base_path, "/");
 
         // Append additional params to base string if clean urls are disabled.
         if (!variable_get('clean_url', 0)) {
@@ -109,7 +109,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
         // @note: Only core URL detection method supported.
         $enabled_negotiation_types = variable_get("language_negotiation_language", array());
         if (!empty($enabled_negotiation_types['locale-url']) && !empty($language->prefix)) {
-          $base_string .= $language->prefix;
+          $base_string .= '/' . $language->prefix;
         }
 
         // Means that this is href to the frontpage.
@@ -148,6 +148,9 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
 
       // Decode url to prevent double encoding in l().
       $href = rawurldecode($href);
+      // Move query params from $href to $options.
+      $href = _path_breadcrumbs_clean_url($href, $options, 'none');
+
       // Build new text or link breadcrumb.
       $options['attributes'] = array('title' => t('Breadcrumb for:') . ' ' . $title);
       $new_breadcrumb = !empty($href) ? l($title, $href, $options) : $title;

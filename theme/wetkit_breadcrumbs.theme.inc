@@ -152,7 +152,6 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
       $href = _path_breadcrumbs_clean_url($href, $options, 'none');
 
       // Build new text or link breadcrumb.
-      $options['attributes'] = array('title' => t('Breadcrumb for:') . ' ' . $title);
       $new_breadcrumb = !empty($href) ? l($title, $href, $options) : $title;
 
       // Replace old breadcrumb link with a new one.

@@ -45,6 +45,11 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
       return FALSE;
     }
 
+    // Bootstrap 3 compatibility. See: https://drupal.org/node/2178565
+    if (is_array($breadcrumbs[count($breadcrumbs) - 1])) {
+      array_pop($breadcrumbs);
+    }
+
     // Add options for rich snippets.
     $elem_tag = 'li';
     $elem_property = '';

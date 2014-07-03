@@ -17,22 +17,33 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
   $breadcrumbs = $variables['breadcrumb'];
   if (!empty($breadcrumbs)) {
 
-    // Custom Logic Based on Theme Selection.
-    if (variable_get('wetkit_wetboew_theme', 0) == 1) {
+    $wxt_active = variable_get('wetkit_wetboew_theme', 'wet-boew');
+
+    // Internet Theme.
+    if ($wxt_active == 'wet-boew-gcwu-fegc') {
       $theme_prefix = 'gcwu';
     }
-    elseif (variable_get('wetkit_wetboew_theme', 0) == 2) {
+    // Intranet Theme.
+    elseif ($wxt_active == 'wet-boew-gc-intranet') {
       $theme_prefix = 'gcwu';
     }
-    elseif (variable_get('wetkit_wetboew_theme', 0) == 3) {
+    // Base Theme.
+    elseif ($wxt_active == 'wet-boew-base') {
       $theme_prefix = 'base';
     }
-    elseif (variable_get('wetkit_wetboew_theme', 0) == 4) {
+    // OGPL Theme.
+    elseif ($wxt_active == 'wet-boew-ogpl') {
       $theme_prefix = 'ogpl';
     }
+    // Canada Theme.
+    elseif ($wxt_active == 'wet-boew-gcweb') {
+      $theme_prefix = 'gcweb';
+    }
+    // WET Theme.
     else {
       $theme_prefix = 'wet';
     }
+
     $output = '<div id="' . $theme_prefix . '-bc"><h2>' . t('Breadcrumb Trail') . '</h2>';
 
     // Provide a navigational heading to give context for breadcrumb links to

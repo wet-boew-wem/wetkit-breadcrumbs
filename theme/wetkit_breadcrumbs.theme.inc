@@ -35,10 +35,6 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
     }
     $output = '<div id="' . $theme_prefix . '-bc"><h2>' . t('Breadcrumb Trail') . '</h2>';
 
-    // Provide a navigational heading to give context for breadcrumb links to
-    // screen-reader users. Make the heading invisible with .element-invisible.
-    $output .= '<h2 class="element-invisible">' . t('You are here') . '</h2>';
-
     // Hide breadcrumb navigation if it contains only one element.
     $hide_single_breadcrumb = variable_get('path_breadcrumbs_hide_single_breadcrumb', 0);
     if ($hide_single_breadcrumb && count($breadcrumbs) == 1) {

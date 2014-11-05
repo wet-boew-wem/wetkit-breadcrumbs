@@ -7,3 +7,4 @@ core = 7.x
 
 projects[path_breadcrumbs][version] = 3.0
 projects[path_breadcrumbs][subdir] = contrib
+projects[path_breadcrumbs][patch][2056345] = http://drupal.org/files/issues/translatable_path-2056345-01.patch

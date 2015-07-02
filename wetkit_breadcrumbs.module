@@ -16,6 +16,10 @@ function wetkit_breadcrumbs_menu_breadcrumb_alter(&$active_trail, $item) {
       unset($active_trail[$key]);
     }
   }
+  // Ensure path breadcrumbs title override works for all breadcrumbs.
+  if (theme_get_setting('bootstrap_breadcrumb_home') && module_exists('path_breadcrumbs')) {
+    $active_trail[0]['title'] = variable_get('path_breadcrumbs_home_link_title', 'Home');
+  }
 }
 
 /**

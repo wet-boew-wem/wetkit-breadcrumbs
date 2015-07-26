@@ -20,6 +20,7 @@ features[variable][] = path_breadcrumbs_cache_enabled
 features[variable][] = path_breadcrumbs_cache_lifetime
 features[variable][] = path_breadcrumbs_decode_entities
 features[variable][] = path_breadcrumbs_delimiter
+features[variable][] = path_breadcrumbs_enable_on_error_pages
 features[variable][] = path_breadcrumbs_hide_single_breadcrumb
 features[variable][] = path_breadcrumbs_home_link_enabled
 features[variable][] = path_breadcrumbs_home_link_title

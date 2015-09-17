@@ -17,26 +17,26 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
   $breadcrumbs = $variables['breadcrumb'];
   if (!empty($breadcrumbs)) {
 
-    $wxt_active = variable_get('wetkit_wetboew_theme', 'wet-boew');
+    $wxt_active = variable_get('wetkit_wetboew_theme', 'theme-wet-boew');
 
     // Internet Theme.
-    if ($wxt_active == 'wet-boew-gcwu-fegc') {
+    if ($wxt_active == 'theme-gcwu-fegc') {
       $theme_prefix = 'gcwu';
     }
     // Intranet Theme.
-    elseif ($wxt_active == 'wet-boew-gc-intranet') {
+    elseif ($wxt_active == 'theme-gc-intranet') {
       $theme_prefix = 'gcwu';
     }
     // Base Theme.
-    elseif ($wxt_active == 'wet-boew-base') {
+    elseif ($wxt_active == 'theme-base') {
       $theme_prefix = 'base';
     }
     // OGPL Theme.
-    elseif ($wxt_active == 'wet-boew-ogpl') {
+    elseif ($wxt_active == 'theme-ogpl') {
       $theme_prefix = 'ogpl';
     }
     // Canada Theme.
-    elseif ($wxt_active == 'wet-boew-gcweb') {
+    elseif ($wxt_active == 'theme-gcweb') {
       $theme_prefix = 'gcweb';
     }
     // WET Theme.

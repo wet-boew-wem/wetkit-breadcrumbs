@@ -114,7 +114,7 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
       }
 
       // Get breadcrumb title from a link like "<a href = "/path">title</a>".
-      $title = trim(strip_tags($breadcrumb));
+      $title = trim(strip_tags($breadcrumb, '<em><abbr>'));
 
       // Wrap title in additional element for microdata support.
       if ($snippet == PATH_BREADCRUMBS_RICH_SNIPPETS_MICRODATA) {

@@ -35,7 +35,10 @@ function wetkit_breadcrumbs_breadcrumb($variables) {
       // Only append if the last item is a link.
       $last_breadcrumb = end($breadcrumbs);
       if (stripos($last_breadcrumb, "href=") !== FALSE) {
-        $breadcrumbs[] = drupal_get_title();
+        $page_title = drupal_get_title();
+        // the title could be blank if we are displaying via the menu tree
+        $page_title = (empty($page_title)) ? menu_get_active_title() : $page_title;
+        $breadcrumbs[] = $page_title;
       }
     }
 

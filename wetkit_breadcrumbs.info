@@ -1,5 +1,5 @@
 name = WetKit Breadcrumbs
-description = Installs and configures breadcrumbs for the Web Experience Toolkit
+description = Installs and configures breadcrumbs for the Drupal Web Experience Toolkit (WxT).
 core = 7.x
 package = WetKit
 dependencies[] = ctools
